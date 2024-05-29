@@ -1,0 +1,63 @@
+/* editar_usuario.css */
+
+/* Estilos para el formulario de cambio de contraseña */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+/* Estilos para los botones de eliminar */
+.btn-delete {
+    margin-left: 10px;
+}
+
+/* Estilos para la barra de navegación */
+.navbar {
+    background-color: #343a40;
+}
+
+.navbar-brand {
+    color: #fff;
+}
+
+.nav-link {
+    color: #fff;
+    margin-right: 10px;
+}
+
+.nav-link:hover {
+    color: #ccc;
+}
+
+/* Estilos para las tarjetas */
+.card {
+    margin-top: 20px;
+}
+
+.card-header {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.card-body {
+    padding: 1.25rem;
+}
+
+/* Estilos para la alerta */
+.alert {
+    margin-top: 20px;
+}
+
+/* Estilos para el cuerpo de la página */
+body {
+    padding-top: 60px;
+}
