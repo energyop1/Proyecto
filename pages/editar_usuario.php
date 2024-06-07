@@ -3,7 +3,7 @@ session_start();
 
 // Verificar si el usuario ha iniciado sesión
 if (!isset($_SESSION['usuario'])) {
-    header("Location: index.php");
+    header("Location: ../php/index.php");
     exit;
 }
 
@@ -76,7 +76,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 mysqli_close($conexion);
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -88,9 +87,11 @@ mysqli_close($conexion);
     <link rel="stylesheet" href="../css/editar_usuario.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="bienvenido.php">Remember ME</a>
+            <a class="navbar-brand" href="bienvenido.php">
+                <img src="../css/fotos/Technology(1).png" alt="Logo" width="50" height="50" class="d-inline-block align-top" loading="lazy">
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -98,17 +99,17 @@ mysqli_close($conexion);
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="bienvenido.php">
+                        <a class="nav-link" href="../pages/bienvenido.php">
                             <i class="fas fa-tasks"></i> Mis Tareas
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="crear_tareas.php">
-                            <i class="fas fa-plus"></i> Crear Tareas
+                        <a class="nav-link" href="../pages/crear_tareas.php">
+                            <i class="fas fa-plus"></i> Crear 
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="editar_usuario.php">
+                        <a class="nav-link" href="../pages/editar_usuario.php">
                             <i class="fas fa-user-edit"></i> Perfil
                         </a>
                     </li>
@@ -122,7 +123,7 @@ mysqli_close($conexion);
         </div>
     </nav>
 
-    <div class="container">
+    <div class="container mt-5 pt-5">
         <div class="row justify-content-center">
             <!-- Columna izquierda: Tareas y Eventos completados -->
             <div class="col-md-4">
@@ -134,10 +135,10 @@ mysqli_close($conexion);
                         <?php if (!empty($tareasCompletadas)) : ?>
                             <ul class="list-group">
                                 <?php foreach ($tareasCompletadas as $tarea) : ?>
-                                    <li class="list-group-item">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
                                         <span><?php echo $tarea['titulo']; ?></span>
                                         <span class="badge badge-secondary"><?php echo $tarea['fecha_completado']; ?></span>
-                                        <form action="eliminar_completados.php" method="post" style="display: inline;">
+                                        <form action="../php/eliminar_completados.php" method="post" style="display: inline;">
                                             <input type="hidden" name="tarea_id" value="<?php echo $tarea['id']; ?>">
                                             <button type="submit" class="btn btn-sm btn-danger btn-delete"><i class="fas fa-trash"></i></button>
                                         </form>
@@ -150,7 +151,7 @@ mysqli_close($conexion);
                     </div>
                 </div>
 
-                <div class="card">
+                <div class="card mt-3">
                     <div class="card-header">
                         <h3>Eventos Completados</h3>
                     </div>
@@ -158,64 +159,63 @@ mysqli_close($conexion);
                         <?php if (!empty($eventosCompletados)) : ?>
                             <ul class="list-group">
                                 <?php foreach ($eventosCompletados as $evento) : ?>
-                                <li class="list-group-item">
-                                    <span><?php echo $evento['nombre']; ?></span>
-                                    <span class="badge badge-secondary"><?php echo $evento['fecha_completado']; ?></span>
-                                    <form action="eliminar_completados.php" method="post" style="display: inline;">
-                                        <input type="hidden" name="evento_id" value="<?php echo $evento['id']; ?>">
-                                        <button type="submit" class="btn btn-sm btn-danger btn-delete"><i class="fas fa-trash"></i></button>
-                                    </form>
-                                </li>
-                        <?php endforeach; ?>
-                                </ul>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span><?php echo $evento['nombre']; ?></span>
+                                        <span class="badge badge-secondary"><?php echo $evento['fecha_completado']; ?></span>
+                                        <form action="../php/eliminar_completados.php" method="post" style="display: inline;">
+                                            <input type="hidden" name="evento_id" value="<?php echo $evento['id']; ?>">
+                                            <button type="submit" class="btn btn-sm btn-danger btn-delete"><i class="fas fa-trash"></i></button>
+                                        </form>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
                         <?php else : ?>
-                                    <p>No hay eventos completados.</p>
-                                <?php endif; ?>
-                            </div>
+                            <p>No hay eventos completados.</p>
+                        <?php endif; ?>
                     </div>
-            </div>
-
-        <!-- Columna derecha: Información del usuario y cambio de contraseña -->
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">
-                    <h3>Editar Información de Usuario</h3>
-                </div>
-                <div class="card-body">
-                    <p><strong>Nombre de Usuario:</strong> <?php echo $_SESSION['usuario']; ?></p>
-                    <p><strong>Correo Electrónico:</strong> <?php echo $email; ?></p>
                 </div>
             </div>
 
-            <div class="card">
-                <div class="card-header">
-                    <h3>Cambiar Contraseña</h3>
+            <!-- Columna derecha: Información del usuario y cambio de contraseña -->
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Editar Información de Usuario</h3>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Nombre de Usuario:</strong> <?php echo $_SESSION['usuario']; ?></p>
+                        <p><strong>Correo Electrónico:</strong> <?php echo $email; ?></p>
+                        <button><i class="fas fa-exclamation-triangle"></i>     Eliminar Cuenta</button>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <?php if (!empty($mensaje)) : ?>
-                        <div class="alert alert-info"><?php echo $mensaje; ?></div>
-                    <?php endif; ?>
-                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                        <div class="form-group">
-                            <label for="password_actual">Contraseña Actual:</label>
-                            <input type="password" id="password_actual" name="password_actual" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="nueva_contraseña">Nueva Contraseña:</label>
-                            <input type="password" id="nueva_contraseña" name="nueva_contraseña" class="form-control" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
-                    </form>
+
+                <div class="card mt-3">
+                    <div class="card-header">
+                        <h3>Cambiar Contraseña</h3>
+                    </div>
+                    <div class="card-body">
+                        <?php if (!empty($mensaje)) : ?>
+                            <div class="alert alert-info"><?php echo $mensaje; ?></div>
+                        <?php endif; ?>
+                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                            <div class="form-group">
+                                <label for="password_actual">Contraseña Actual:</label>
+                                <input type="password" id="password_actual" name="password_actual" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="nueva_contraseña">Nueva Contraseña:</label>
+                                <input type="password" id="nueva_contraseña" name="nueva_contraseña" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Scripts JavaScript -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-```

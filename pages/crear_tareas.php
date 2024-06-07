@@ -21,19 +21,19 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="bienvenido.php">
+                    <a class="nav-link" href="../pages/bienvenido.php">
                         <i class="fas fa-tasks"></i>
                         Mis Tareas
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="crear_tareas.php">
+                    <a class="nav-link" href="../pages/crear_tareas.php">
                         <i class="fas fa-plus"></i>
-                        Crear Tareas y Eventos
+                        Crear
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="editar_usuario.php">
+                    <a class="nav-link" href="../pages/editar_usuario.php">
                         <i class="fas fa-user-edit"></i>
                         Perfil
                     </a>
@@ -44,17 +44,22 @@
                         Cerrar Sesión
                     </a>
                 </li>
+                <li class="nav-item">
+                    <button class="btn btn-secondary" id="toggle-dark-mode">
+                        <i class="fas fa-moon"></i> Modo Oscuro
+                    </button>
+                </li>
             </ul>
         </div>
     </div>
 </nav>
 
 <div class="content-container container mt-5">
-    <div class="row">
+    <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="card shadow p-3 mb-5 bg-white rounded">
+            <div class="card shadow p-3 mb-5 pt-5 bg-white rounded">
                 <h2 class="mb-4">Crea una nueva tarea:</h2>
-                <form action="proceso_tarea.php" method="post">
+                <form action="../php/proceso_tarea.php" method="post" onsubmit="return validateDate()">
                     <div class="form-group">
                         <input type="text" name="titulo" class="form-control" placeholder="Título de la tarea" required>
                     </div>
@@ -63,7 +68,7 @@
                     </div>
                     <div class="form-group">
                         <label for="dia_limite">Día Límite:</label>
-                        <input type="date" name="dia_limite" class="form-control" required>
+                        <input type="date" name="dia_limite" class="form-control" min="2024-01-01" required>
                     </div>
                     <div class="form-group">
                         <label for="nivel_urgencia">Nivel de Urgencia:</label>
@@ -85,9 +90,9 @@
             </div>
         </div>
         <div class="col-md-6">
-            <div class="card shadow p-3 mb-5 bg-white rounded">
+            <div class="card shadow p-3 mb-5 pt-5 bg-white rounded">
                 <h2 class="mb-4">Crea un nuevo evento:</h2>
-                <form action="proceso_evento.php" method="post">
+                <form action="../php/proceso_evento.php" method="post" onsubmit="return validateEventDates()">
                     <div class="form-group">
                         <input type="text" name="nombre" class="form-control" placeholder="Nombre del evento" required>
                     </div>
@@ -96,11 +101,11 @@
                     </div>
                     <div class="form-group">
                         <label for="dia_inicio">Día de Inicio:</label>
-                        <input type="date" name="dia_inicio" class="form-control" required>
+                        <input type="date" name="dia_inicio" class="form-control" min="2024-01-01" required>
                     </div>
                     <div class="form-group">
                         <label for="dia_final">Día Final:</label>
-                        <input type="date" name="dia_final" class="form-control" required>
+                        <input type="date" name="dia_final" class="form-control" min="2024-01-01" required>
                     </div>
                     <div class="form-group">
                         <label for="color">Color:</label>
@@ -130,6 +135,57 @@
             $('#nivel_urgencia').val(urgencia);
         }
     }
+
+    function validateDate() {
+        var dateInput = document.querySelector('input[name="dia_limite"]').value;
+        var selectedDate = new Date(dateInput);
+        var minDate = new Date('2024-01-01');
+
+        if (selectedDate < minDate) {
+            alert('El día límite no puede ser anterior al año 2024.');
+            return false;
+        }
+        return true;
+    }
+
+    function validateEventDates() {
+        var diaInicio = document.querySelector('input[name="dia_inicio"]').value;
+        var diaFinal = document.querySelector('input[name="dia_final"]').value;
+
+        var inicioDate = new Date(diaInicio);
+        var finalDate = new Date(diaFinal);
+        var minDate = new Date('2024-01-01');
+
+        if (inicioDate < minDate || finalDate < minDate) {
+            alert('Las fechas del evento no pueden ser anteriores al año 2024.');
+            return false;
+        }
+
+        if (finalDate < inicioDate) {
+            alert('El día final no puede ser anterior al día de inicio.');
+            return false;
+        }
+
+        return true;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var toggleButton = document.getElementById('toggle-dark-mode');
+        var icon = toggleButton.querySelector('i');
+        
+        toggleButton.addEventListener('click', function () {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+                toggleButton.innerHTML = '<i class="fas fa-sun"></i> Modo Claro';
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+                toggleButton.innerHTML = '<i class="fas fa-moon"></i> Modo Oscuro';
+            }
+        });
+    });
 </script>
 </body>
 </html>

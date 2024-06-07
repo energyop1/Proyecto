@@ -12,7 +12,14 @@
 <body>
     <div class="container" id="login-container">
         <h2 style="color: white;">Iniciar Sesión</h2>
-        <form action="login.php" method="post">
+        <?php
+        session_start();
+        if (isset($_SESSION['error'])) {
+            echo '<p class="error">' . $_SESSION['error'] . '</p>';
+            unset($_SESSION['error']);
+        }
+        ?>
+        <form action="../php/login.php" method="post">
             <input type="text" placeholder="Usuario" name="usuario" required>
             <input type="password" placeholder="Contraseña" name="contraseña" required>
             <input type="submit" value="¡Entra ya!">
@@ -22,7 +29,7 @@
 
     <div class="container_registro" id="registro-container" style="display: none;">
         <h2 style="color: white;">Registrarse</h2>
-        <form action="registro.php" method="post">
+        <form action="../php/registro.php" method="post">
             <input type="text" placeholder="Usuario" name="usuario" id="usuario" required>
             <input type="email" placeholder="Correo Electrónico" name="email" id="email" required>
             <input type="password" placeholder="Contraseña" name="contraseña" id="contraseña" required>
@@ -34,4 +41,3 @@
     <script src="../js/inicio_sesion.js"></script>
 </body>
 </html>
-

@@ -88,49 +88,49 @@ if (mysqli_num_rows($resultadoEventos) > 0) {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
-<div class="container-fluid">
-    <a class="navbar-brand" href="#"><h3>Hola de nuevo, <?php echo $_SESSION['usuario']; ?>!</h3></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="bienvenido.php">
-                    <i class="fas fa-tasks"></i>
-                    Mis Tareas
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="crear_tareas.php">
-                    <i class="fas fa-plus"></i>
-                    Crear Tareas
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="editar_usuario.php">
-                    <i class="fas fa-user-edit"></i>
-                    Perfil
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../includes/cerrar_sesion.php">
-                    <i class="fas fa-sign-out-alt"></i>
-                    Cerrar Sesión
-                </a>
-            </li>
-        </ul>
-    </div>
-</div>
-</nav>
+<nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+        <a class="navbar-brand" href="../pages/bienvenido.php">
+            <img src="../css/fotos/Technology(1).png" alt="Logo" width="50" height="50" class="d-inline-block align-top" loading="lazy">
+        </a>
+        <a class="navbar-brand" href="../pages/bienvenido.php"><h3>Hola de nuevo, <?php echo $_SESSION['usuario']; ?>!</h3></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../pages/bienvenido.php">
+                            <i class="fas fa-tasks"></i> Mis Tareas
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../pages/crear_tareas.php">
+                            <i class="fas fa-plus"></i> Crear 
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../pages/editar_usuario.php">
+                            <i class="fas fa-user-edit"></i> Perfil
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../includes/cerrar_sesion.php">
+                            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
 
 <div class="container-fluid mt-5">
 <div class="row">
-    <div class="col-md-3">
-        <h2>Tus Tareas:</h2>
-        <form id="ordenarTareasForm" method="GET" action="bienvenido.php">
+    <div class="col-md-3 tarjeta_tarea">
+        <h2>Tus Tareas</h2>
+        <form id="ordenarTareasForm" method="GET" action="../pages/bienvenido.php">
             <select name="ordenarTareasPor" id="ordenarTareasPor" class="form-control mb-3" onchange="this.form.submit()">
                 <option value="fecha" <?php echo (isset($_GET['ordenarTareasPor']) && $_GET['ordenarTareasPor'] == 'fecha') ? 'selected' : ''; ?>>Fecha más reciente</option>
                 <option value="urgencia" <?php echo (isset($_GET['ordenarTareasPor']) && $_GET['ordenarTareasPor'] == 'urgencia') ? 'selected' : ''; ?>>Más urgente</option>
@@ -139,33 +139,37 @@ if (mysqli_num_rows($resultadoEventos) > 0) {
         <?php if (!empty($tareas)) : ?>
             <div class="list-group">
             <?php foreach ($tareas as $tarea) : ?>
-                <div id="tarea-<?php echo $tarea['id']; ?>" class="list-group-item list-group-item-action"                 style="border-left: 5px solid <?php echo $tarea['color']; ?>">
-                    <span><?php echo $tarea['titulo']; ?></span>
-                    <span class="badge badge-secondary"><?php echo $tarea['dia_limite']; ?></span>
-                    <button type="button" class="btn btn-info btn-sm float-right" onclick="toggleDetallesTarea(<?php echo $tarea['id']; ?>)">
-                        <i class="fas fa-search"></i>
+    <div id="tarea-<?php echo $tarea['id']; ?>" class="list-group-item list-group-item-action" style="border-left: 5px solid <?php echo $tarea['color']; ?>">
+        <span><?php echo $tarea['titulo']; ?></span>
+        <span class="badge badge-secondary"><?php echo $tarea['dia_limite']; ?></span>
+        <button type="button" class="btn btn-info btn-sm float-right" onclick="toggleDetallesTarea(<?php echo $tarea['id']; ?>)">
+            <i class="fas fa-search"></i>
+        </button>
+        <button type="button" class="btn btn-danger btn-sm delete-task" data-id="<?php echo $tarea['id']; ?>">
+            <i class="fas fa-trash-alt"></i>
+        </button>
+        <div class="collapse detalles-tarea" id="detalle-tarea-<?php echo $tarea['id']; ?>">
+            <div class="card card-body">
+                <h5 class="details-title">Detalles de la Tarea</h5>
+                <div class="details-content">
+                    <p><strong>Título:</strong> <?php echo $tarea['titulo']; ?></p>
+                    <p><strong>Descripción:</strong> <?php echo $tarea['descripcion']; ?></p>
+                    <p><strong>Nivel de Urgencia:</strong> <?php echo $tarea['nivel_urgencia']; ?></p>
+                    <div class="action-buttons">
+                        <button type="button" class="btn btn-warning btn-sm" onclick="marcarCompleto('tarea', <?php echo $tarea['id']; ?>)">
+                            <i class="fas fa-star"></i> Completado
                     </button>
-                    <button type="button" class="btn btn-danger btn-sm delete-task" data-id="<?php echo $tarea['id']; ?>">
-                        <i class="fas fa-trash-alt"></i>
-                    </button>
-                    <div class="collapse" id="detalle-tarea-<?php echo $tarea['id']; ?>">
-                        <div class="card card-body">
-                            <h5>Detalles de la Tarea</h5>
-                            <p><strong>Título:</strong> <?php echo $tarea['titulo']; ?></p>
-                            <p><strong>Descripción:</strong> <?php echo $tarea['descripcion']; ?></p>
-                            <p><strong>Nivel de Urgencia:</strong> <?php echo $tarea['nivel_urgencia']; ?></p>
-                            <button type="button" class="btn btn-warning" onclick="marcarCompleto('tarea', <?php echo $tarea['id']; ?>)">
-                                <i class="fas fa-star"></i> Marcar como completado
-                            </button>
-                            <form method="POST" class="mt-2 cambiar-color-form">
-                                <input type="hidden" name="tipo" value="tarea">
-                                <input type="hidden" name="id" value="<?php echo $tarea['id']; ?>">
-                                <input type="color" name="color" value="<?php echo $tarea['color']; ?>" onchange="cambiarColorTarea(this)">
-                            </form>
-                        </div>
-                    </div>
+                <form method="POST" class="cambiar-color-form">
+                <input type="hidden" name="tipo" value="tarea">
+                <input type="hidden" name="id" value="<?php echo $tarea['id']; ?>">
+                <input type="color" name="color" value="<?php echo $tarea['color']; ?>" onchange="cambiarColorTarea(this)">
+                 </form>
                 </div>
-            <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+        <?php endforeach; ?>
             </div>
         <?php else : ?>
             <p>No hay tareas por el momento.</p>
@@ -174,8 +178,8 @@ if (mysqli_num_rows($resultadoEventos) > 0) {
     <div class="col-md-6">
         <div id="calendar"></div>
     </div>
-    <div class="col-md-3">
-        <h2>Tus Eventos:</h2>
+    <div class="col-md-3 tarjeta_evento">
+        <h2>Tus Eventos</h2>
         <form id="ordenarEventosForm" method="GET" action="bienvenido.php">
             <select name="ordenarEventosPor" id="ordenarEventosPor" class="form-control mb-3" onchange="this.form.submit()">
                 <option value="fecha" <?php echo (isset($_GET['ordenarEventosPor']) && $_GET['ordenarEventosPor'] == 'fecha') ? 'selected' : ''; ?>>Fecha más reciente</option>
@@ -184,33 +188,37 @@ if (mysqli_num_rows($resultadoEventos) > 0) {
         <?php if (!empty($eventos)) : ?>
             <div class="list-group">
             <?php foreach ($eventos as $evento) : ?>
-                <div id="evento-<?php echo $evento['id']; ?>" class="list-group-item list-group-item-action" style="border-left: 5px solid <?php echo $evento['color']; ?>">
-                    <span><?php echo $evento['nombre']; ?></span>
-                    <span class="badge badge-secondary"><?php echo $evento['dia_inicio']; ?></span>
-                    <button type="button" class="btn btn-info btn-sm float-right" onclick="toggleDetallesEvento(<?php echo $evento['id']; ?>)">
-                        <i class="fas fa-search"></i>
+        <div id="evento-<?php echo $evento['id']; ?>" class="list-group-item list-group-item-action" style="border-left: 5px solid <?php echo $evento['color']; ?>">
+        <span><?php echo $evento['nombre']; ?></span>
+        <span class="badge badge-secondary"><?php echo $evento['dia_inicio']; ?></span>
+        <button type="button" class="btn btn-info btn-sm float-right" onclick="toggleDetallesEvento(<?php echo $evento['id']; ?>)">
+            <i class="fas fa-search"></i>
+        </button>
+        <button type="button" class="btn btn-danger btn-sm delete-event" data-id="<?php echo $evento['id']; ?>">
+            <i class="fas fa-trash-alt"></i>
+        </button>
+        <div class="collapse detalles-evento" id="detalle-evento-<?php echo $evento['id']; ?>">
+            <div class="card card-body">
+                <h5 class="details-title">Detalles del Evento</h5>
+                <div class="details-content">
+                    <p><strong>Nombre:</strong> <?php echo $evento['nombre']; ?></p>
+                    <p><strong>Descripción:</strong> <?php echo $evento['descripcion']; ?></p>
+                    <p><strong>Fecha de Inicio:</strong> <?php echo $evento['dia_inicio']; ?></p>
+                    <p><strong>Fecha de Finalización:</strong> <?php echo $evento['dia_final']; ?></p>
+                    <div class="action-buttons">
+                        <button type="button" class="btn btn-warning btn-sm" onclick="marcarCompleto('evento', <?php echo $evento['id']; ?>)">
+                            <i class="fas fa-star"></i> Completado
                     </button>
-                    <button type="button" class="btn btn-danger btn-sm delete-event" data-id="<?php echo $evento['id']; ?>">
-                        <i class="fas fa-trash-alt"></i>
-                    </button>
-                    <div class="collapse" id="detalle-evento-<?php echo $evento['id']; ?>">
-                        <div class="card card-body">
-                            <h5>Detalles del Evento</h5>
-                            <p><strong>Nombre:</strong> <?php echo $evento['nombre']; ?></p>
-                            <p><strong>Descripción:</strong> <?php echo $evento['descripcion']; ?></p>
-                            <p><strong>Fecha de Inicio:</strong> <?php echo $evento['dia_inicio']; ?></p>
-                            <p><strong>Fecha de Finalización:</strong> <?php echo $evento['dia_final']; ?></p>
-                            <button type="button" class="btn btn-warning" onclick="marcarCompleto('evento', <?php echo $evento['id']; ?>)">
-                                <i class="fas fa-star"></i> Marcar como completado
-                            </button>
-                            <form method="POST" class="mt-2 cambiar-color-form">
-                                <input type="hidden" name="tipo" value="evento">
-                                <input type="hidden" name="id" value="<?php echo $evento['id']; ?>">
-                                <input type="color" name="color" value="<?php echo $evento['color']; ?>" onchange="cambiarColorEvento(this)">
-                            </form>
-                        </div>
+                        <form method="POST" class="cambiar-color-form">
+                        <input type="hidden" name="tipo" value="evento">
+                        <input type="hidden" name="id" value="<?php echo $evento['id']; ?>">
+                        <input type="color" name="color" value="<?php echo $evento['color']; ?>" onchange="cambiarColorEvento(this)">
+                 </form>
+                </div>
                     </div>
                 </div>
+            </div>
+        </div>
             <?php endforeach; ?>
             </div>
         <?php else : ?>
@@ -221,6 +229,7 @@ if (mysqli_num_rows($resultadoEventos) > 0) {
 </div>
 
 <script>
+
 function toggleDetallesTarea(id) {
     $('#detalle-tarea-' + id).collapse('toggle');
 }
@@ -236,7 +245,7 @@ function cambiarColorTarea(input) {
     var color = input.value;
 
     $.ajax({
-        url: 'bienvenido.php',
+        url: '../pages/bienvenido.php',
         method: 'POST',
         data: {
             cambiarColor: 1,
@@ -266,7 +275,7 @@ function cambiarColorEvento(input) {
     var color = input.value;
 
     $.ajax({
-        url: 'bienvenido.php',
+        url: '../pages/bienvenido.php',
         method: 'POST',
         data: {
             cambiarColor: 1,
@@ -289,8 +298,10 @@ function cambiarColorEvento(input) {
     });
 }
 
+
+
 function marcarCompleto(tipo, id) {
-    $.post('completo.php', { tipo: tipo, id: id }, function(response) {
+    $.post('../php/completo.php', { tipo: tipo, id: id }, function(response) {
         if (response.success) {
             alert('Marcado como completado correctamente.');
             // Ocultar la tarjeta correspondiente
@@ -333,7 +344,7 @@ $(document).ready(function() {
     $('.delete-task').click(function() {
         var id = $(this).data('id');
         if (confirm('¿Estás seguro de que deseas borrar esta tarea?')) {
-            $.post('borrar_tarea.php', { id: id }, function(response) {
+            $.post('../php/borrar_tarea.php', { id: id }, function(response) {
                 location.reload();
             });
         }
@@ -342,12 +353,13 @@ $(document).ready(function() {
     $('.delete-event').click(function() {
         var id = $(this).data('id');
         if (confirm('¿Estás seguro de que deseas borrar este evento?')) {
-            $.post('borrar_evento.php', { id: id }, function(response) {
+            $.post('../php/borrar_evento.php', { id: id }, function(response) {
                 location.reload();
             });
         }
     });
 });
+
 </script>
 
 </body>
