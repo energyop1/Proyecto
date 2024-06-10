@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&family=Poetsen+One&display=swap');
+
+/* Estilos para centrar las tarjetas */
+.card-container {
+    flex: 1;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    font-family: "Poetsen One", sans-serif;
+    background-color: #f8f9fa; /* Fondo gris claro */
+    color: #495057; /* Texto oscuro */
+}
+
+.navbar {
+    background-color: #2E1833;
+    transition: background-color 0.3s ease;
+    font-size: 18px; /* Aumentar el tamaño de la letra */
+}
+
+.navbar-brand {
+    color: #f8f9fa;
+}
+
+.navbar-nav .nav-link {
+    color: #f8f9fa;
+    margin-right: 10px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #853FB7;
+    transform: scale(1.1);
+}
+
+/* Estilos para las tarjetas */
+.card {
+    margin-top: 30px;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card {
+    background-color: #ffffff; /* Fondo blanco */
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    color: #495057; /* Texto oscuro */
+    border-radius: 20px; /* Bordes redondeados */
+    margin: 20px auto; /* Centrar las tarjetas con margen adicional */
+    max-width: 350px; /* Ancho máximo de las tarjetas */
+    padding: 20px; /* Espaciado interno */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición de animación al pasar el ratón */
+}
+
+.card:hover {
+    transform: scale(1.05) ; /* Aumentar el tamaño y rotar al pasar el ratón */
+    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.2); /* Aumentar la sombra al pasar el ratón */
+}
+
+/* Animaciones adicionales */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 40px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.card {
+    margin-top: 46px;
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.my-input {
+    border-color: #C467DB; /* Borde rosa para inputs */
+    border-radius: 20px; /* Bordes redondeados para inputs */
+    padding: 12px 20px; /* Espaciado interno */
+}
+
+.my-input:focus {
+    border-color: #853FB7; /* Cambio de color de borde al hacer focus */
+    box-shadow: 0 0 0 0.2rem rgba(196, 103, 219, 0.25); /* Efecto de sombra al hacer focus */
+}
+
+.btn-primary {
+    background-color: #C467DB; /* Morado claro */
+    border-color: #C467DB;
+    font-weight: bold;
+    border-radius: 20px; /* Bordes redondeados */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #853FB7; /* Morado oscuro al pasar el ratón */
+    border-color: #853FB7;
+}
+
+.btn-primary:active {
+    transform: translateY(1px); /* Efecto de presionar */
+}
+
+.btn-pencil.active {
+    color: #C467DB; /* Color de lápiz activado */
+}
+
+.btn-pencil:hover i {
+    color: #000000; /* Cambio de color de lápiz al pasar el ratón a negro */
+}
+
+.content-container {
+    margin-top: 120px; /* Espacio adicional entre la barra de navegación y el contenido */
+}
+
+h2 {
+    font-family: "Poetsen One", sans-serif;
+    font-weight: bold;
+    color: #C467DB; /* Color rosa para títulos */
+    font-weight: bold;
+    text-align: center; /* Centrar títulos */
+    margin-bottom: 30px; /* Espacio inferior para títulos */
+}
+
+/* Estilos adicionales */
+.btn-outline-dark {
+    color: #343a40; /* Color oscuro para botones */
+    border-color: #343a40; /* Borde oscuro para botones */
+}
+
+.btn-outline-dark:hover {
+    color: #ffffff; /* Cambio a texto blanco al pasar el ratón */
+    background-color: #343a40; /* Fondo oscuro al pasar el ratón */
+    border-color: #343a40; /* Borde oscuro al pasar el ratón */
+}
+
+.btn-pencil i {
+    font-size: 18px; /* Tamaño de icono de lápiz */
+}
+
+.btn-pencil.active i {
+    color: #C467DB; /* Cambio de color de lápiz activado */
+}
+

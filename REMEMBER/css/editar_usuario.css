@@ -1,0 +1,125 @@
+/* editar_usuario.css */
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&family=Poetsen+One&display=swap');
+/* Paleta de colores */
+:root {
+    --primary-color: #C467DB;
+    --secondary-color: #2E1833;
+    --accent-color: #853FB7;
+    --light-color: #f8f9fa;
+    --danger-color: #E3342F;
+}
+
+/* Estilos para el cuerpo de la página */
+body {
+    font-family: "Poetsen One", sans-serif;
+    padding-top: 60px; /* Aumentar el espacio superior para la navbar fija */
+    background-color: var(--light-color);
+}
+
+/* Estilos para el formulario de cambio de contraseña */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    transform: scale(1.05);
+}
+
+.btn-delete {
+    margin-left: 10px;
+    background-color: var(--danger-color);
+    border-color: var(--danger-color);
+}
+
+.btn-delete:hover {
+    background-color: darken(var(--danger-color),);
+    border-color: darken(var(--danger-color), );
+    transform: scale(1.1);
+}
+
+/* Estilos para la barra de navegación */
+.navbar {
+    font-family: "Poetsen One", sans-serif;
+    background-color: var(--secondary-color);
+    transition: background-color 0.3s ease;
+    font-size: 18px; /* Aumentar el tamaño de la letra */
+}
+
+.navbar-brand {
+    color: var(--light-color);
+}
+
+.navbar-nav .nav-link {
+    color: var(--light-color);
+    margin-right: 10px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--accent-color);
+    transform: scale(1.1);
+}
+
+/* Estilos para las tarjetas */
+.card {
+    margin-top: 10px;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeInUp 1s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+    background-color: var(--primary-color);
+    color: var(--light-color);
+}
+
+.card-body {
+    padding: 1.25rem;
+}
+
+/* Estilos para la alerta */
+.alert {
+    margin-top: 20px;
+    animation: fadein 1s, fadeout 1s 5s forwards;
+}
+
+/* Animaciones adicionales */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 40px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+/* Estilos para listas de grupo */
+.list-group-item {
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.list-group-item:hover {
+    background-color: var(--danger-color);
+    transform: translateX(10px);
+}
+
+/* Añadir animación de entrada a las tarjetas */
+.card {
+    animation: fadeInUp 1s ease-out;
+}
